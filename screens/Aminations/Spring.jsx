@@ -6,31 +6,35 @@ import {
     TouchableWithoutFeedback,
 } from "react-native";
 
-const OpacityScreen = () => {
+const SpringScreen = () => {
     const animation = new Animated.Value(1);
-
     const animatedStyles = {
-        opacity: animation,
+        transform: [
+            {
+                scale: animation,
+                // scaleX: animation, //scale horizontally
+                // scaleY: animation, //scale vertically
+            },
+        ],
     };
 
     const startAnimation = () => {
-        Animated.timing(animation, {
-            toValue: 0,
-            duration: 350,
+        console.log(animation._value, "here");
+        Animated.spring(animation, {
+            toValue: animation._value == 1 ? 2 : 1,
             useNativeDriver: true,
-        }).start(() => {
-            // this works when animation is completed, we set animation back to 1
-            Animated.timing(animation, {
-                toValue: 1,
-                duration: 500,
-                useNativeDriver: true,
-            }).start();
-        });
+            friction: 2,
+            // tension: 160,
+        }).start();
     };
 
     return (
         <View style={styles.container}>
-            <TouchableWithoutFeedback onPress={startAnimation}>
+            <TouchableWithoutFeedback
+                onPress={() => {
+                    startAnimation();
+                }}
+            >
                 <Animated.View style={[styles.box, animatedStyles]} />
             </TouchableWithoutFeedback>
         </View>
@@ -50,4 +54,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default OpacityScreen;
+export default SpringScreen;

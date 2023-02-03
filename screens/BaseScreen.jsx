@@ -6,15 +6,20 @@ import {
     FlatList,
     Text,
 } from "react-native";
+import { FlatGrid } from "react-native-super-grid";
 import animationScreens from "../data/animationScreens";
 import Colors from "../constants/Colors";
 
-const BaseScreen = () => {
+const BaseScreen = (props) => {
+    const visitAnimationScreen = (url) => {
+        props.navigation.navigate(url);
+    };
+
     return (
         <View
             style={[styles.container, { backgroundColor: Colors.background }]}
         >
-            <FlatList
+            <FlatGrid
                 // onScroll={scrollHandler}
                 // ref={blogs}
                 enableEmptySections={true}
@@ -22,10 +27,21 @@ const BaseScreen = () => {
                 keyExtractor={(item) => item.id}
                 renderItem={(itemData) => (
                     <View style={styles.flatlistInner}>
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity onPress={() => {}}>
-                                <View>
-                                    <Text>{itemData.item.name}</Text>
+                        <View
+                            style={[
+                                styles.buttonContainer,
+                                { backgroundColor: itemData.item.color },
+                            ]}
+                        >
+                            <TouchableOpacity
+                                onPress={() => {
+                                    visitAnimationScreen(itemData.item.url);
+                                }}
+                            >
+                                <View style={{}}>
+                                    <Text style={styles.buttonText}>
+                                        {itemData.item.name}
+                                    </Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -46,16 +62,20 @@ const styles = StyleSheet.create({
 
         padding: 10,
     },
-    flatlistInner: { width: "50%", borderWidth: 1 },
+    flatlistInner: {},
     centered: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
     },
     buttonContainer: {
-        borderWidth: 1,
+        borderWidth: 0.5,
         paddingHorizontal: 20,
         paddingVertical: 10,
+    },
+    buttonText: {
+        fontWeight: "500",
+        fontSize: 18,
     },
 });
 
