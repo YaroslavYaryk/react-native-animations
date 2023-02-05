@@ -6,41 +6,44 @@ import {
     TouchableWithoutFeedback,
 } from "react-native";
 
-const RotationScreen = () => {
+const SequenceScreen = () => {
     const animation = new Animated.Value(0);
+    const animationColor = new Animated.Value(0);
 
     const rotateInterpolation = animation.interpolate({
         inputRange: [0, 1],
-        outputRange: ["0deg", "180deg"],
+        outputRange: ["0deg", "360deg"],
     });
 
-    const rotateXInterpolation = animation.interpolate({
+    const backgroundInterpolation = animationColor.interpolate({
         inputRange: [0, 1],
-        outputRange: ["-180deg", "180deg"],
+        outputRange: ["rgb(255,99,71)", "rgb(99,71,255)"],
     });
 
     const animatedStyles = {
         transform: [
             {
-                // rotate: rotateInterpolation,
+                rotate: rotateInterpolation,
                 // rotateX: rotateInterpolation, //rotate horizontally
-                rotateY: rotateInterpolation, //rotate vertically
-            },
-            {
-                // rotate: rotateInterpolation,
-                rotateX: rotateXInterpolation, //rotate horizontally
                 // rotateY: rotateInterpolation, //rotate vertically
             },
         ],
+        backgroundColor: backgroundInterpolation,
     };
 
     const startAnimation = () => {
-        console.log(animation._value);
-        Animated.timing(animation, {
-            toValue: animation._value == 0 ? 1 : 0,
-            duration: 1500,
-            useNativeDriver: false,
-        }).start();
+        Animated.sequence([
+            Animated.timing(animationColor, {
+                toValue: animationColor._value == 0 ? 1 : 0,
+                duration: 500,
+                useNativeDriver: false,
+            }),
+            Animated.timing(animation, {
+                toValue: animation._value == 0 ? 1 : 0,
+                duration: 500,
+                useNativeDriver: false,
+            }),
+        ]).start();
     };
 
     return (
@@ -69,4 +72,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default RotationScreen;
+export default SequenceScreen;

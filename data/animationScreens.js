@@ -53,4 +53,40 @@ export default [
         name: "Event",
         color: "#DCF157",
     },
+    {
+        id: 9,
+        url: "ParallelScreen",
+        name: "Parallel",
+        color: "#C9819B",
+    },
+    {
+        id: 10,
+        url: "SequenceScreen",
+        name: "Sequence",
+        color: "#C7F9E7",
+    },
+    {
+        id: 11,
+        url: "DelayScreen",
+        name: "Delay",
+        color: "#FFEF99",
+    },
+    {
+        id: 12,
+        url: "ExtrapolateScreen",
+        name: "Extrapolate",
+        color: "#BDA7E7",
+    },
+    {
+        id: 13,
+        url: "AnimatedComponentScreen",
+        name: "AnimatedC...",
+        color: "#C7E3FE",
+    },
+    {
+        id: 14,
+        url: "HiddenScreen",
+        name: "Hidden",
+        color: "#E7B26C",
+    },
 ];

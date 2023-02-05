@@ -16,6 +16,14 @@ import BackgroundColorScreen from "../screens/Aminations/BackgroundColor";
 import RotationScreen from "../screens/Aminations/Rotation";
 import SpringScreen from "../screens/Aminations/Spring";
 import EventScreen from "../screens/Aminations/Event";
+import ParallelScreen from "../screens/Aminations/Parallel";
+import SequenceScreen from "../screens/Aminations/Sequence";
+import DelayScreen from "../screens/Aminations/Delay";
+import ExtrapolateScreen from "../screens/Aminations/Extrapolate";
+import AnimatedComponentScreen from "../screens/Aminations/AnimatedComponent";
+import HiddenScreen from "../screens/Aminations/HiddenScreen";
+import StaggeredHeadsScreen from "../screens/RealWorld/StaggeredHeadsScreen";
+import SwipingCardsScreen from "../screens/RealWorld/SwipingCardsScreen";
 
 const BaseStackNavigator = createStackNavigator();
 import Colors from "../constants/Colors";
@@ -82,6 +90,46 @@ export const BaseNavigator = (props) => {
             <BaseStackNavigator.Screen
                 name="EventScreen"
                 component={EventScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="ParallelScreen"
+                component={ParallelScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="SequenceScreen"
+                component={SequenceScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="DelayScreen"
+                component={DelayScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="ExtrapolateScreen"
+                component={ExtrapolateScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="AnimatedComponentScreen"
+                component={AnimatedComponentScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="HiddenScreen"
+                component={HiddenScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="StaggeredHeadsScreen"
+                component={StaggeredHeadsScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="SwipingCardsScreen"
+                component={SwipingCardsScreen}
                 initialParams={{}}
             />
         </BaseStackNavigator.Navigator>

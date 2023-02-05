@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { FlatGrid } from "react-native-super-grid";
 import animationScreens from "../data/animationScreens";
+import realWorldAnimations from "../data/realWorldAnimations";
 import Colors from "../constants/Colors";
 
 const BaseScreen = (props) => {
@@ -19,35 +20,71 @@ const BaseScreen = (props) => {
         <View
             style={[styles.container, { backgroundColor: Colors.background }]}
         >
-            <FlatGrid
-                // onScroll={scrollHandler}
-                // ref={blogs}
-                enableEmptySections={true}
-                data={animationScreens}
-                keyExtractor={(item) => item.id}
-                renderItem={(itemData) => (
-                    <View style={styles.flatlistInner}>
-                        <View
-                            style={[
-                                styles.buttonContainer,
-                                { backgroundColor: itemData.item.color },
-                            ]}
-                        >
-                            <TouchableOpacity
-                                onPress={() => {
-                                    visitAnimationScreen(itemData.item.url);
-                                }}
+            <View>
+                <FlatGrid
+                    // onScroll={scrollHandler}
+                    // ref={blogs}
+                    enableEmptySections={true}
+                    data={animationScreens}
+                    keyExtractor={(item) => item.id}
+                    renderItem={(itemData) => (
+                        <View style={styles.flatlistInner}>
+                            <View
+                                style={[
+                                    styles.buttonContainer,
+                                    { backgroundColor: itemData.item.color },
+                                ]}
                             >
-                                <View style={{}}>
-                                    <Text style={styles.buttonText}>
-                                        {itemData.item.name}
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        visitAnimationScreen(itemData.item.url);
+                                    }}
+                                >
+                                    <View style={{}}>
+                                        <Text style={styles.buttonText}>
+                                            {itemData.item.name}
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    </View>
-                )}
-            />
+                    )}
+                />
+            </View>
+            <View style={{ padding: 10 }}>
+                <FlatList
+                    // onScroll={scrollHandler}
+                    // ref={blogs}
+                    enableEmptySections={true}
+                    data={realWorldAnimations}
+                    keyExtractor={(item) => item.id}
+                    renderItem={(itemData) => (
+                        <View style={styles.flatlistInner}>
+                            <View
+                                style={[
+                                    styles.buttonContainer,
+                                    {
+                                        backgroundColor: itemData.item.color,
+                                        marginBottom: 10,
+                                    },
+                                ]}
+                            >
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        visitAnimationScreen(itemData.item.url);
+                                    }}
+                                >
+                                    <View style={{}}>
+                                        <Text style={styles.buttonText}>
+                                            {itemData.item.name}
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    )}
+                />
+            </View>
         </View>
     );
 };
@@ -55,8 +92,6 @@ const BaseScreen = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
         // justifyContent: "center",
         // alignItems: "center",
 

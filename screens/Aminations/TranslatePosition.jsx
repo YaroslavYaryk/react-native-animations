@@ -17,28 +17,52 @@ const TranslatePositionScreen = () => {
                 translateY: animationY, //animation by Y
                 // translateX: animationX, //animation by X
             },
+            {
+                translateX: animationX, //animation by X
+            },
         ],
     };
 
-    const startAnimation = (animation) => {
-        Animated.timing(animation, {
-            toValue: 200,
-            duration: 500,
-            useNativeDriver: true,
-            // easing: Easing.back(5),
-            // easing: Easing.bounce,
-            // easing: Easing.elastic(2),
-            easing: Easing.bezier(0.06, 1, 0.08, 0.23),
-        }).start();
+    const startAnimation = () => {
+        Animated.sequence([
+            Animated.parallel([
+                Animated.timing(animationY, {
+                    toValue: 200,
+                    duration: 500,
+                    useNativeDriver: false,
+                    // easing: Easing.back(5),
+                    // easing: Easing.bounce,
+                    // easing: Easing.elastic(2),
+                    // easing: Easing.bezier(0.06, 1, 0.08, 0.23),
+                }),
+                Animated.timing(animationX, {
+                    toValue: 100,
+                    duration: 500,
+                    useNativeDriver: false,
+                }),
+            ]),
+            Animated.delay(1500),
+            Animated.parallel([
+                Animated.timing(animationY, {
+                    toValue: 1,
+                    duration: 500,
+                    useNativeDriver: false,
+                    // easing: Easing.back(5),
+                    // easing: Easing.bounce,
+                    // easing: Easing.elastic(2),
+                    // easing: Easing.bezier(0.06, 1, 0.08, 0.23),
+                }),
+                Animated.timing(animationX, {
+                    toValue: 1,
+                    duration: 500,
+                    useNativeDriver: false,
+                }),
+            ]),
+        ]).start();
     };
-
     return (
         <View style={styles.container}>
-            <TouchableWithoutFeedback
-                onPress={() => {
-                    startAnimation(animationY);
-                }}
-            >
+            <TouchableWithoutFeedback onPress={startAnimation}>
                 <Animated.View style={[styles.box, animatedStyles]} />
             </TouchableWithoutFeedback>
         </View>
