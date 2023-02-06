@@ -7,6 +7,8 @@ import { Platform, SafeAreaView, Button, View } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import BaseScreen from "../screens/BaseScreen";
+
+// base animations
 import OpacityScreen from "../screens/Aminations/Opacity";
 import TranslatePositionScreen from "../screens/Aminations/TranslatePosition";
 import ScaleScreen from "../screens/Aminations/Scale";
@@ -22,8 +24,19 @@ import DelayScreen from "../screens/Aminations/Delay";
 import ExtrapolateScreen from "../screens/Aminations/Extrapolate";
 import AnimatedComponentScreen from "../screens/Aminations/AnimatedComponent";
 import HiddenScreen from "../screens/Aminations/HiddenScreen";
+
+// Real world animations
 import StaggeredHeadsScreen from "../screens/RealWorld/StaggeredHeadsScreen";
 import SwipingCardsScreen from "../screens/RealWorld/SwipingCardsScreen";
+import LoginScreen from "../screens/RealWorld/LoginScreen";
+import ProgressBarButonScreen from "../screens/RealWorld/ProgressBarButtonScreen";
+import QuestionsScreen from "../screens/RealWorld/QuestionsScreen";
+import ColorPickerScreen from "../screens/RealWorld/ColorPickerScreen";
+import FloatingButtonScreen from "../screens/RealWorld/FloatingButtonScreen";
+import WriteButtonScreen from "../screens/RealWorld/WriteButton";
+import HorisontalParalaxScreen from "../screens/RealWorld/HorisontalParalaxScreen";
+import FloatingHeartsScreen from "../screens/RealWorld/FloatingHeartsScreen";
+import BouncingHeartScreen from "../screens/RealWorld/BouncingHeartScreen";
 
 const BaseStackNavigator = createStackNavigator();
 import Colors from "../constants/Colors";
@@ -130,6 +143,51 @@ export const BaseNavigator = (props) => {
             <BaseStackNavigator.Screen
                 name="SwipingCardsScreen"
                 component={SwipingCardsScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="LoginScreen"
+                component={LoginScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="ProgressBarButonScreen"
+                component={ProgressBarButonScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="QuestionsScreen"
+                component={QuestionsScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="ColorPickerScreen"
+                component={ColorPickerScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="FloatingButtonScreen"
+                component={FloatingButtonScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="WriteButtonScreen"
+                component={WriteButtonScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="HorisontalParalaxScreen"
+                component={HorisontalParalaxScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="FloatingHeartsScreen"
+                component={FloatingHeartsScreen}
+                initialParams={{}}
+            />
+            <BaseStackNavigator.Screen
+                name="BouncingHeartScreen"
+                component={BouncingHeartScreen}
                 initialParams={{}}
             />
         </BaseStackNavigator.Navigator>
