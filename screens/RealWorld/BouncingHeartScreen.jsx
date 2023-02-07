@@ -1,111 +1,114 @@
-import React, { useCallback, useState } from "react";
+import React, { Component } from "react";
 import {
     AppRegistry,
     StyleSheet,
     Text,
     View,
-    TouchableOpacity,
-    Dimensions,
+    TouchableWithoutFeedback,
     Animated,
 } from "react-native";
 
-const BouncingHeartScreen = () => {
-    const [liked, setLiked] = useState(false);
+import Heart from "../../components/Heart";
 
-    const animation = new Animated.Value(0);
-
-    const handlePressLike = () => {
-        const toValue = liked ? 0 : 1;
-        Animated.spring(animation, {
-            toValue,
-            // duration: 300,
-            friction: 10,
-            useNativeDriver: false,
-        }).start(() => {
-            setLiked(!liked);
-        });
-        console.log(animation);
-    };
-    console.log(liked);
-
-    const colorInterpolation = animation.interpolate({
+const getTransformAnimation = (animation, scale, y, x, rotate, opacity) => {
+    const scaleAnimation = animation.interpolate({
         inputRange: [0, 1],
-        outputRange: ["#000", "#e31745"],
-        extrapolate: "clamp",
+        outputRange: [0, scale],
     });
-    const scaleInterpolation = animation.interpolate({
-        inputRange: [0, 0.5, 1],
-        outputRange: [1, 1.1, 1],
-        extrapolate: "clamp",
+    const xAnimatoin = animation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, x],
     });
 
-    const heartStyle = {
-        backgroundColor: colorInterpolation,
+    const yAnimation = animation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, y],
+    });
+
+    const rotationAnimation = animation.interpolate({
+        inputRange: [0, 1],
+        outputRange: ["0deg", rotate],
+    });
+
+    const opacityAnimation = animation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, opacity],
+    });
+
+    return {
+        opacity: opacityAnimation,
         transform: [
-            {
-                scale: scaleInterpolation,
-            },
+            { scale: scaleAnimation },
+            { translateX: xAnimatoin },
+            { translateY: yAnimation },
+            { rotate: rotationAnimation },
         ],
     };
-    return (
-        <View style={[styles.container]}>
-            <TouchableOpacity
-                onPress={() => {
-                    handlePressLike();
-                }}
-            >
-                <Animated.View
-                    style={[styles.heart, heartStyle]}
-                ></Animated.View>
-            </TouchableOpacity>
-        </View>
-    );
 };
+
+export default class BouncingHeartScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            liked: false,
+            scale: new Animated.Value(0),
+            animations: [
+                new Animated.Value(0),
+                new Animated.Value(0),
+                new Animated.Value(0),
+                new Animated.Value(0),
+                new Animated.Value(0),
+                new Animated.Value(0),
+            ],
+        };
+        this.triggerLike = this.triggerLike.bind(this);
+    }
+    triggerLike() {
+        this.setState({
+            liked: !this.state.liked,
+        });
+
+        Animated.spring(this.state.scale, {
+            toValue: 2,
+            friction: 3,
+        }).start(() => {
+            this.state.scale.setValue(0);
+        });
+    }
+    render() {
+        const bouncyHeart = this.state.scale.interpolate({
+            inputRange: [0, 1, 2],
+            outputRange: [1, 0.8, 1],
+        });
+        const heartButtonStyle = {
+            transform: [{ scale: bouncyHeart }],
+        };
+
+        return (
+            <View style={styles.container}>
+                <View>
+                    <TouchableWithoutFeedback onPress={this.triggerLike}>
+                        <Animated.View style={heartButtonStyle}>
+                            <Heart filled={this.state.liked} />
+                        </Animated.View>
+                    </TouchableWithoutFeedback>
+                </View>
+            </View>
+        );
+    }
+}
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
         alignItems: "center",
+        justifyContent: "center",
     },
     explodeHeart: {
         left: 0,
         top: 0,
         position: "absolute",
     },
-    heart: {
-        width: 50,
-        height: 50,
-        backgroundColor: "transparent",
-    },
-    heartShape: {
-        width: 30,
-        height: 45,
-        position: "absolute",
-        top: 0,
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-    },
-    filledHeart: {
-        backgroundColor: "#e31745",
-    },
-    fit: {
-        transform: [{ scale: 0.9 }],
-    },
-    emptyFill: {
-        backgroundColor: "#FFF",
-    },
-    empty: {
-        backgroundColor: "#ccc",
-    },
-    leftHeart: {
-        transform: [{ rotate: "-45deg" }],
-        left: 5,
-    },
-    rightHeart: {
-        transform: [{ rotate: "45deg" }],
-        right: 5,
-    },
 });
 
-export default BouncingHeartScreen;
+AppRegistry.registerComponent("BouncingHeartScreen", () => BouncingHeartScreen);
